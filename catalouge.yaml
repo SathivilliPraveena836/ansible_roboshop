@@ -1,9 +1,34 @@
-- name: catalouge
+- name: catalogue 
   hosts: catalouge
   become: yes
   tasks: 
-    - name: Install node js
+    - name: Reset all nodejs module streams
+      ansible.builtin.command: dnf module reset nodejs -y
+
+    - name: Enable nodejs 20 stream
+      ansible.builtin.command: dnf module enable nodejs:20 -y
+
+    - name: Install Node.js 20
       ansible.builtin.dnf: 
-        name: nodejs:20
+        name: nodejs
         state: present
+
+    - name: adding user
+      ansible.builtin.user:
+        name: useradd 
+        system: yes
+        shell: /sbin/nologin
+        home: /app  
+        comment: "roboshop system user" 
+        create_home: no
+
+    - name: create a folder
+      ansible.builtin.file:
+        name: app directory
+        path: /app
+        state: directory
+        group: 
+        owner:
+        mode:
+
     
