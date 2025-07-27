@@ -17,3 +17,9 @@
         name: mongod
         state: started
         enabled: true
+
+    - name:
+      ansible.builtin.replace:
+        path: 
+        regexp:
+        replace: 
